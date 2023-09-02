@@ -48,37 +48,43 @@ $ git config --global user.email johndoe@example.com
 </ol>
 
 
-Respuestas
-1.// Dirección de red: 192.168.10.8, Dirección de transmisión: 192.168.10.11</li>
-2.// La dirección IP 169.254.255.200/26 es una dirección IP de tipo APIPA (Automatic Private Internet Protocol Addressing) Esta dirección se utiliza cuando un dispositivo no puede obtener una dirección IP válida de un servidor DHCP y se autoconfigura mediante el protocolo de direccionamiento APIPA. La máscara de subred /26 indica que los primeros 26 bits de la dirección IP son la red y los últimos 6 bits son el host. Por lo tanto, la cantidad de hosts que se pueden conectar a esta red es de **62**. Sin embargo, no se puede inferir ninguna información adicional sobre el host con esta dirección IP.
-</li>
-<li>¿Cuantos clientes puede tener la sub red 172.16.0.0/22?.</li>
-<li>¿Que clase y tipo de dirección es 10.10.10.0/24?.</li>
-</ol>
+<li>Respuestas</li>
+
+a.// Dirección de red: 192.168.10.8, Dirección de transmisión: 192.168.10.11
+
+b.// La dirección IP 169.254.255.200/26 es una dirección IP de tipo APIPA (Automatic Private Internet Protocol Addressing) Esta dirección se utiliza cuando un dispositivo no puede obtener una dirección IP válida de un servidor DHCP y se autoconfigura mediante el protocolo de direccionamiento APIPA. La máscara de subred /26 indica que los primeros 26 bits de la dirección IP son la red y los últimos 6 bits son el host. Por lo tanto, la cantidad de hosts que se pueden conectar a esta red es de **62**. Sin embargo, no se puede inferir ninguna información adicional sobre el host con esta dirección IP.
+
+c.// El subred 172.16.0.0/22 ​​utiliza una máscara de subred de 22 bits, lo que significa que hay 22 bits reservados para la parte de red y (32-22) = 10 bits para la parte de host. Por lo tanto, clientes posibles = 2^10-2 = 1024-2 = 1022
+
+d.// primero debemos calcularlo utilizando la fórmula (2^n-2), donde "n" es el número de bits disponibles para la parte de host en la subred.
+Por lo tanto en el caso de la subred 172.16.0.0/22, tienes 22 bits reservados para la parte de red y 32 - 22 = 10 bits para la parte de host, entonces tenemos, clientes posibles = 2^10-2 = 1024-2 = 1022
+
+e.// Clase A privada : La dirección IP 10.0.0.0 a 10.255.255.255 se reserva para su uso en redes privadas y no se utiliza en Internet público. Las direcciones en el rango 10.0.0.0 a 10.255.255.255 son conocidas como direcciones IP de Clase A privada.
+
+Tipo de dirección : La notación "/24" indica que se utiliza una máscara de subred de 24 bits. Esto significa que los primeros 24 bits se utilizan para la parte de red, y los
 
 
 ## 3. [Caracterización de los adaptadores](#) ✔
 |Parámetro||Valor|
 |--|:--:|--:|
-|Número de adaptadores Físicos|-->|3|
-|Número de adaptadores Virtuales|-->|7|
+|Número de adaptadores Físicos|-->|4|
+|Número de adaptadores Virtuales|-->|3|
 |Tipo de Adaptador principal|-->|Wi-fi|
-|Fabricante del Adaptador principal|-->|Liteon Technology Corporation|
-|Código MAC del fabricante|-->|3C-A0-67|
-|MAC|-->|3C-A0-67-E8-D8-77|
+|Fabricante del Adaptador principal|-->|Qualcomm Corporation|
+|Código MAC del fabricante|-->|C8-FF-28|
+|MAC|-->| C8-FF-28-CE-01-E3|
 
 >Nota: Para obtener los parámetros de la red, usaremos los comandos [ipconfig][10], [ifconfig][8], [getmac][9].
-
 
 ## 4. [Caracterización de la red](#) ✔
 |Parámetro|Valor|
 |--|--:|
-|__Subnet__|192.168.254.0/24|
-|IPv4|192.168.254.104|
+|__Subnet__| 192.168.1.0/24|
+|IPv4|192.168.1.43|
 |Subnet Mask decimal|24|
 |Subnet Mask octetos|255.255.255.0|
 |Número de direcciones de Host|254|
-|Rango de direcciones de Host|192.168.254.1-254|
+|Rango de direcciones de Host| 192.168.1.1-254|
 |IP Broadcast|192.168.254.255|
 |Server DHCP|192.168.254.254|
 |Server DNS|8.8.8.8|
@@ -89,12 +95,12 @@ Respuestas
 ## 5. [Caracterización de la puerta de enlace](#) ✔
 |Parámetro|Valor|
 |--|--:|
-|Número de Entradas en la tabla ARP |11|
-|IPv4 Gateway|192.168.254.254|
-|MAC Gateway|3C-A0-67-E8-D8-77|
-|ISP|Dobleclick Software E Ingeneria|
-|[IP Publica][5]|138.0.90.4|
-|[Sistema Autónomo][6]|AS264646|
+|Número de Entradas en la tabla ARP |24|
+|IPv4 Gateway|190.217.254.254|
+|MAC Gateway|c4-70-0b-09-14-00|
+|ISP|Lumen|
+|[IP Publica][5]|190.217.68.59|
+|[Sistema Autónomo][6]|AS3549|
 
 
 >Nota: Para obtener los parámetros de la red, usaremos el comando [arp][11] y algún servicio web/HTTP como [cual-es-mi-ip.net][5], [ipinfo.io][6] o [asrank.caida.org][9_1].
@@ -103,12 +109,12 @@ Respuestas
 ## 6. [Retardo de la red](#) ✔
 |Servidor|IP|Tiempo promedio/ms|
 |--|--|--|
-|DNS Google|8.8.8.8||
-|DNS Cloudflare|1.1.1.1||
-|OpenDNS|208.67.222.222||
-|Alternate DNS|76.76.19.19||
-|DNS Quad9|9.9.9.9||
-|AdGuard DNS|94.140.14.14||
+|DNS Google|8.8.8.8|87|
+|DNS Cloudflare|1.1.1.1|53|
+|OpenDNS|208.67.222.222|164|
+|Alternate DNS|76.76.19.19|-|
+|DNS Quad9|9.9.9.9|79|
+|AdGuard DNS|94.140.14.14|197|
 
 >Nota: Para calcular el retardo de la red, usaremos el protocolo ICMP/[ping][12] con al menos 10 paquetes.
 
@@ -116,9 +122,9 @@ Respuestas
 ## 7. [Capacidad del canal](#) ✔
 |Servidor|Ping/ms|Down/MB|Up/MB|
 |--|:--:|--:|--:|
-|[speed test][1]|39|96.4|69.2|
-|[Netflix][2]|14|78|67|
-|[Claro][3]|13|74|31|
+|[speed test][1]|44|2.29|9.54|
+|[Netflix][2]|1.8|35|47|
+|[Claro][3]|32|2.0|9.6|
 |[nperf][4]|6.7|93.6|54.98|
 
 >Nota: Para calcular el retardo de la red, usaremos el protocolo HTTP via servicio WEB.
@@ -127,14 +133,14 @@ Respuestas
 ## 8. [Distancia desde el host](#) ✔
 |Servidor|Ping/ms|Numero de Saltos|
 |--|:--:|--:|
-|google.com|14|10|
-|GMail.com|15|9|
-|YouTube.com|14|10|
-|dns.google|15|9|
-|aws.amazon.com|154|17|
-|portal.azure.com|13|11|
-|login.live.com|88|22|
-|Facebook.com|120|11|
+|google.com|82|11|
+|GMail.com|304|11|
+|YouTube.com|91|11|
+|dns.google|-|-|
+|aws.amazon.com|26|15|
+|portal.azure.com|26|12|
+|login.live.com|130|23|
+|Facebook.com|94|13|
 |c.ns.WhatsApp.net|151|12|
 |claro.com.co|151|12|
 |platzi.com|122|11|
